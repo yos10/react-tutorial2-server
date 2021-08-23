@@ -1,14 +1,21 @@
-import Sequelize from "sequelize";
+import Sequelize from 'sequelize';
 
 const { DataTypes } = Sequelize;
 
 const url =
-  process.env.DATABASE_URL ||
-  "postgres://postgres:postgres@db/review_data";
-export const sequelize = new Sequelize(url);
+  process.env.DATABASE_URL || 'postgres://postgres:postgres@db/review_data';
+
+export const sequelize = new Sequelize(url, {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+});
 
 export const User = sequelize.define(
-  "user",
+  'user',
   {
     sub: {
       type: DataTypes.STRING,
@@ -23,7 +30,7 @@ export const User = sequelize.define(
 );
 
 export const Restaurant = sequelize.define(
-  "restaurant",
+  'restaurant',
   {
     name: {
       type: DataTypes.STRING,
@@ -40,7 +47,7 @@ export const Restaurant = sequelize.define(
 );
 
 export const Review = sequelize.define(
-  "review",
+  'review',
   {
     userId: {
       type: DataTypes.INTEGER,
