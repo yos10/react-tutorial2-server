@@ -16,7 +16,7 @@ export const users = [
   {
     id: 3,
     sub: "testuser3",
-    nickname: "user3",
+    nickname: "ユーザー3",
     createdAt: "2020-12-20T00:00:00.000Z",
     updatedAt: "2020-12-20T00:00:00.000Z",
   },
