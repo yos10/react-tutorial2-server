@@ -1,1 +1,1 @@
-web: node migration.js
+web: node index.js
