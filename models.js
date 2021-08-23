@@ -2,17 +2,28 @@ import Sequelize from 'sequelize';
 
 const { DataTypes } = Sequelize;
 
-const url =
-  process.env.DATABASE_URL || 'postgres://postgres:postgres@db/review_data';
-
-export const sequelize = new Sequelize(url, {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-});
+export const sequelize = process.env.DATABASE_URL ?
+  // 本番環境
+  new Sequelize(
+    process.env.DATABASE_URL,
+    {
+      logging: false,
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      },
+    }
+  )
+  :
+  // 開発環境
+  new Sequelize(
+    'postgres://postgres:postgres@db/review_data',
+    {
+      logging: false
+    }
+  );
 
 export const User = sequelize.define(
   'user',
